@@ -17,8 +17,12 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.
 #include QMK_KEYBOARD_H
 
 enum custom_keycodes {
-  KC_MISSION_CONTROL = SAFE_RANGE,
-  KC_LAUNCHPAD
+  KC_MISSION_CONTROL = SAFE_RANGE,  // Mission Control
+  KC_LAUNCHPAD, // Launchpad
+  RGB_E_H,  // Change Hue of the Lighting with the Encoder
+  RGB_E_S,  // Change Saturation of the Lighting with the Encoder
+  RGB_E_V   // Change Value of the Lighting with the Encoder
+//   KC_TAUNTXT
 };
 
 enum {
@@ -27,7 +31,7 @@ enum {
     TD_F3_MCTL,
     TD_F4_LPAD,
     TD_F7_PREV,
-    TD_F8_PPAUSE,
+    TD_F8_PPAU,
     TD_F9_NEXT,
     TD_F10_MUTE,
     TD_F11_VOLD,
@@ -35,9 +39,10 @@ enum {
 };
 
 
-// #define KC_SCRCPY LGUI(LSFT(LCTL(KC_4)))
 // Use Cleanshot X shortcuts instead
+// #define KC_SCRCPY LGUI(LSFT(LCTL(KC_4)))
 #define KC_SCRCPY LGUI(LSFT(KC_2))
+
 #define KC_SCR LGUI(LSFT(KC_3))
 #define KC_MCTL KC_MISSION_CONTROL
 #define KC_LPAD KC_LAUNCHPAD
@@ -49,7 +54,7 @@ qk_tap_dance_action_t tap_dance_actions[] = {
     [TD_F3_MCTL] = ACTION_TAP_DANCE_DOUBLE(KC_F3, KC_MCTL),
     [TD_F4_LPAD] = ACTION_TAP_DANCE_DOUBLE(KC_F4, KC_LPAD),
     [TD_F7_PREV] = ACTION_TAP_DANCE_DOUBLE(KC_F7, KC_MPRV),
-    [TD_F8_PPAUSE] = ACTION_TAP_DANCE_DOUBLE(KC_F8, KC_MPLY),
+    [TD_F8_PPAU] = ACTION_TAP_DANCE_DOUBLE(KC_F8, KC_MPLY),
     [TD_F9_NEXT] = ACTION_TAP_DANCE_DOUBLE(KC_F9, KC_MNXT),
     [TD_F10_MUTE] = ACTION_TAP_DANCE_DOUBLE(KC_F10, KC_MUTE),
     [TD_F11_VOLD] = ACTION_TAP_DANCE_DOUBLE(KC_F11, KC_VOLD),
@@ -92,19 +97,19 @@ const uint16_t PROGMEM keymaps[][MATRIX_ROWS][MATRIX_COLS] = {
     // Press Fn+N to toggle between 6KRO and NKRO. This setting is persisted to the EEPROM and thus persists between restarts.
 
     [0] = LAYOUT(
-        KC_ESC,  TD(TD_F1_BRID),   TD(TD_F2_BRIU),   TD(TD_F3_MCTL),   TD(TD_F4_LPAD),   KC_F5,   KC_F6,   TD(TD_F7_PREV),   TD(TD_F8_PPAUSE),   TD(TD_F9_NEXT),   TD(TD_F10_MUTE),  TD(TD_F11_VOLD),  TD(TD_F12_VOLU),  KC_SCRCPY,  KC_SYSTEM_SLEEP,
-        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_DEL,
-        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          MO(2),
+        KC_ESC,  TD(TD_F1_BRID),   TD(TD_F2_BRIU),   TD(TD_F3_MCTL),   TD(TD_F4_LPAD),   KC_F5,   KC_F6,   TD(TD_F7_PREV),   TD(TD_F8_PPAU),   TD(TD_F9_NEXT),   TD(TD_F10_MUTE),  TD(TD_F11_VOLD),  TD(TD_F12_VOLU),  KC_SCRCPY,  KC_SYSTEM_SLEEP,
+        KC_GRV,  KC_1,    KC_2,    KC_3,    KC_4,    KC_5,    KC_6,    KC_7,    KC_8,    KC_9,    KC_0,    KC_MINS, KC_EQL,  KC_BSPC,          KC_PGUP,
+        KC_TAB,  KC_Q,    KC_W,    KC_E,    KC_R,    KC_T,    KC_Y,    KC_U,    KC_I,    KC_O,    KC_P,    KC_LBRC, KC_RBRC, KC_BSLS,          KC_PGDN,
         KC_CAPS, KC_A,    KC_S,    KC_D,    KC_F,    KC_G,    KC_H,    KC_J,    KC_K,    KC_L,    KC_SCLN, KC_QUOT,          KC_ENT,           KC_HOME,
         KC_LSFT,          KC_Z,    KC_X,    KC_C,    KC_V,    KC_B,    KC_N,    KC_M,    KC_COMM, KC_DOT,  KC_SLSH,          KC_RSFT, KC_UP,   KC_END,
-        KC_LCTL, KC_LALT, KC_LGUI,                             KC_SPC,                            KC_RGUI, KC_RALT, MO(1) ,  KC_LEFT, KC_DOWN, KC_RGHT
+        KC_LCTL, KC_LALT, KC_LGUI,                             KC_SPC,                            KC_RGUI, KC_RALT, TT(1) ,  KC_LEFT, KC_DOWN, KC_RGHT
     ),
 
     [1] = LAYOUT(
         _______, KC_BRID, KC_BRIU, KC_MCTL, KC_LPAD, _______, _______, KC_MPRV, KC_MPLY, KC_MNXT, _______, _______, _______, KC_SCR,           _______,
         _______, RGB_TOG, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, KC_DEL,           _______,
-        _______, RGB_HUI, RGB_SAI, RGB_VAI, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,            _______,
-        _______, RGB_HUD, RGB_SAD, RGB_VAD, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
+        _______, RGB_E_H, RGB_E_S, RGB_E_V, _______, _______, _______, _______, _______, _______, _______, _______, _______, RESET,            _______,
+        _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______, _______,          _______,          _______,
         _______,          _______, _______, _______, _______, _______, NK_TOGG, _______, _______, _______, _______,          _______, RGB_MOD, _______,
         _______, _______, _______,                            _______,                            _______, _______, _______, RGB_SPD, RGB_RMOD, RGB_SPI
     ),
@@ -118,9 +123,45 @@ void set_side_leds(int r, int g, int b) {
     }
 }
 
-// Custom keycodes for Mission Control and Launchpad
+
+static bool hue_pressed = false;
+static bool sat_pressed = false;
+static bool val_pressed = false;
 bool process_record_user(uint16_t keycode, keyrecord_t *record) {
+    // static bool tAuNtTeXt = false;
+
+    // if (tAuNtTeXt) {
+    //     if (record->event.pressed) {
+    //         if (keycode != KC_SPC) {
+    //             register_code(KC_CAPS);
+    //             unregister_code(KC_CAPS);
+    //         }
+    //     }
+    // }
     switch (keycode) {
+        case RGB_E_H:
+            if (record->event.pressed) hue_pressed = true;
+            else hue_pressed = false;
+            return false;
+        case RGB_E_S:
+            if (record->event.pressed) sat_pressed = true;
+            else sat_pressed = false;
+            return false;
+        case RGB_E_V:
+            if (record->event.pressed) val_pressed = true;
+            else val_pressed = false;
+            return false;
+        // case KC_TAUNTXT:
+        //     if (record->event.pressed) {
+        //         tAuNtTeXt = !tAuNtTeXt;
+        //         // when it's turned on, toggle caps lock (makes first letter lowercase)
+        //         if (tAuNtTeXt) {
+        //             register_code(KC_CAPS);
+        //             unregister_code(KC_CAPS);
+        //         } 
+        //     }
+        //     return false;
+        // Custom keycodes for Mission Control and Launchpad
         case KC_MISSION_CONTROL:
             if (record->event.pressed) {
                 host_consumer_send(0x29F);
@@ -149,11 +190,18 @@ bool encoder_update_user(uint8_t index, bool clockwise) {
     if (index == 0) {
         switch (biton32(layer_state)) {
             case 1:
-                if (clockwise)
-                    rgblight_increase_hue_noeeprom();
-                else
-                    rgblight_decrease_hue_noeeprom();
-                break;
+                if (clockwise) {
+                    if (hue_pressed) rgblight_increase_hue_noeeprom();
+                    else if (sat_pressed) rgblight_increase_sat_noeeprom();
+                    else if (val_pressed) rgblight_increase_val_noeeprom();
+                    else tap_code16(KC_VOLU);
+                } else {
+                    if (hue_pressed) rgblight_decrease_hue_noeeprom();
+                    else if (sat_pressed) rgblight_decrease_sat_noeeprom();
+                    else if (val_pressed) rgblight_decrease_val_noeeprom();
+                    else tap_code16(KC_VOLD);
+                }
+                return false;
             default:
                 if ((get_mods() & MOD_BIT(KC_LGUI)) || (get_mods() & MOD_BIT(KC_RGUI))) {
                     if (clockwise) {
@@ -208,6 +256,11 @@ void matrix_scan_user(void) {
 }
 
 void rgb_matrix_indicators_user() {
+    if (IS_LAYER_ON(1)) {
+        rgb_matrix_set_color(8, RGB_RED);
+        rgb_matrix_set_color(14, RGB_RED);
+        rgb_matrix_set_color(20, RGB_RED);
+    }
     if (host_keyboard_led_state().caps_lock) {
         set_side_leds(255,255,255);
     }

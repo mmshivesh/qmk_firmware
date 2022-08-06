@@ -1,4 +1,3 @@
-
 #ifdef RGB_SIDEBAR
 
 // #define RGB_MATRIX_CUSTOM_EFFECT_IMPLS
